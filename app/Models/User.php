@@ -20,15 +20,20 @@ class User extends Authenticatable
 
     static public function  register($params) : void {
         $u = new User();
+        $u->fill([
+            "username" => $params["username"],
+            "email" => $params["email"],
+            "password" => $params["password"]
+        ]);
         $u->username = $params["username"];
         $u->email = $params["email"];
         $u->password =  password_hash($params["password"],PASSWORD_DEFAULT);
         $u->save();
     }
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        "username",
+        "email",
+        "password"
     ];
 
     /**
