@@ -14,10 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use \App\Models\User as User;
 
-Route::post('/login',function(){
-    return "views";
-});
+Route::post('/login',function(Request $request){
+
+})->name("api.login");
+
+Route::post("/register",function (Request $request) {
+    $validatedData=$request->validate([
+        "username" => "required|unique:users|max:255",
+        "email" => "required",
+        "password" => "required|min:6",
+    ]);
+    User::register($validatedData);
+    redirect("/",)->with("Successfully created");
+})->name("api.register");
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

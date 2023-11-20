@@ -15,8 +15,13 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->string("title");
+            $table->string("src");
+            $table->unsignedBigInteger("likes_count")->default(0);
+            $table->unsignedBigInteger("comments_count")->default(0);
+            $table->foreignId("author")->references("id")->on("users");
             $table->timestamps();
+            $table->timestamp("deleted_at")->default(null);
         });
     }
 

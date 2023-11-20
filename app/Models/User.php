@@ -17,6 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    static public function  register($params) : void {
+        $u = new User();
+        $u->username = $params["username"];
+        $u->email = $params["email"];
+        $u->password =  password_hash($params["password"],PASSWORD_DEFAULT);
+        $u->save();
+    }
     protected $fillable = [
         'name',
         'email',
