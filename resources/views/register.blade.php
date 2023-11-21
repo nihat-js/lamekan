@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 <h2 class="title text-center mb-3">Register</h2>
-<form method="post" action="{{ route("api.register")  }}">
+<form method="POST" action="{{ route("api.register")  }}">
     <div class="">
         <label> Username</label>
         <input class="form-control" type="text" name="username" placeholder="">
@@ -25,13 +25,16 @@
         <input  class="form-control" type="password" name="password" placeholder="">
     </div>
 
-    <button class="btn btn-outline-primary mt-3" type="register" > Register </button>
-    <?php
-    var_dump($errors);
-    ?>
-    @foreach($errors as $error)
-        <?= $error ?>
-    @endforeach
+    <button class="btn btn-outline-primary mt-3"  > Register </button>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </form>
 </div>
 

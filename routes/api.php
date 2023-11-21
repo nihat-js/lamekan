@@ -17,15 +17,20 @@ use Illuminate\Support\Facades\Route;
 use \App\Models\User as User;
 
 Route::post('/login',function(Request $request){
-
+    $validatedData=$request->validate([
+        "username" => "required",
+        "password" => "required",
+    ]);
+    $result = User::login($validatedData);
+    return $result;
 })->name("api.login");
 
 Route::post("/register",function (Request $request) {
-    $validatedData=$request->validate([
+    $validatedData= \Illuminate\Support\Facades\Validator::make($request->all(),[
         "username" => "required|unique:users|max:255",
         "email" => "required",
         "password" => "required|min:6",
-    ]);
+    ])->validate();
     User::register($validatedData);
     redirect("/",)->with("Successfully created");
 })->name("api.register");
